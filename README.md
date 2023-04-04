@@ -15,7 +15,7 @@ the user's complete control.
 JSON values are encrypted in a Git repository and then exported to a single file.
 
 The JSON data is saved in a file named secrets.txt and then encrypted with `openssl`
-as follows: openssl enc -aes-256-cbc -salt -in data.json -out data.json.enc -k mypassword
+as follows: `openssl enc -aes-256-cbc -salt -in data.json -out data.json.enc -k mypassword`
 
 Any time a key name, value or tag is modified the state is comitted to the repository with an
 automatically derived commit message.
