@@ -52,6 +52,7 @@ Actions
 
 ## How does a user interact with this utility service?
 Actions  => Corresponding API Calls
+
 0. HTTP GET /api/v1/safe/open?as=`uniqueSafeBufferName`
 
 1. HTTP POST /api/v1/safe/create?as=`uniqueSafeBufferName`
