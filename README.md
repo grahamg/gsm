@@ -39,15 +39,25 @@ AES is a symmetric key encryption algorithm, which means that the same secret ke
 
 ## What actions/feature set is supported by this utility service?
 Actions
+
 0. Open an existing (saved) safe that has already been exported to a file.
+
 1. Create a new safe (initially in memory only).
+
 2. Export the currently open safe buffer to a file as an encrypted payload.
+
 3. Show the hash value for a given safe (by name).
+
 4. Add a new entry in the currently open safe buffer.
+
 5. Modify an existing entry in the currently open safe buffer.
+
 6. Archive an active entry in the currently open safe buffer.
+
 7. Unarchive an archived entry in the currently open safe buffer.
+
 8. Add a new tag to an active entry in the currently open safe buffer.
+
 9. Remove an active tag from an active entry in the currently open safe buffer.
 
 ## How does a user interact with this utility service?
