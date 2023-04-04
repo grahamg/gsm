@@ -25,3 +25,8 @@ deps:
 	$(GOGET) github.com/stretchr/testify/mock
 build-linux:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BINARY_UNIX) -v
+
+safe-create:
+	curl -X POST "http://127.0.0.1:8080/api/v1/safe/create?as=$1"
+
+.PHONY: safe-create
