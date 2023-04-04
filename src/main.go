@@ -140,79 +140,79 @@ func handleExportSafe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(fileContents)
-	}
+}
 
-	func handleHashSafe(w http.ResponseWriter, r *http.Request) {
+func handleHashSafe(w http.ResponseWriter, r *http.Request) {
 	safeName := r.URL.Query().Get("as")
 	if safeName == "" {
-	http.Error(w, "Missing safe name", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing safe name", http.StatusBadRequest)
+		return
 	}
 	mutex.Lock()
 	defer mutex.Unlock()
 	safe, ok := openSafes[safeName]
 	if !ok {
-	http.Error(w, "Safe not open", http.StatusBadRequest)
-	return
+		http.Error(w, "Safe not open", http.StatusBadRequest)
+		return
 	}
 	hash := sha256.Sum256([]byte(fmt.Sprintf("%v", safe)))
 	fmt.Fprintln(w, fmt.Sprintf("%x", hash))
 	w.WriteHeader(http.StatusOK)
-	}
+}
 
-	func handleUpdateSecret(w http.ResponseWriter, r *http.Request) {
+func handleUpdateSecret(w http.ResponseWriter, r *http.Request) {
 	safeName := r.URL.Query().Get("as")
 	if safeName == "" {
-	http.Error(w, "Missing safe name", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing safe name", http.StatusBadRequest)
+		return
 	}
 	mutex.Lock()
 	defer mutex.Unlock()
 	safe, ok := openSafes[safeName]
 	if !ok {
-	http.Error(w, "Safe not open", http.StatusBadRequest)
-	return
+		http.Error(w, "Safe not open", http.StatusBadRequest)
+		return
 	}
 	key := r.URL.Query().Get("key")
 	if key == "" {
-	http.Error(w, "Missing key", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing key", http.StatusBadRequest)
+		return
 	}
 	var secret Secret
 	err := json.NewDecoder(r.Body).Decode(&secret)
 	if err != nil {
-	http.Error(w, "Error decoding secret: "+err.Error(), http.StatusInternalServerError)
-	return
+		http.Error(w, "Error decoding secret: "+err.Error(), http.StatusInternalServerError)
+		return
 	}
 	found := false
 	for i, s := range safe.Secrets {
-	if s.Key == key {
-	secret.Archived = s.Archived
-	safe.Secrets[i] = secret
-	found = true
-	break
-	}
+		if s.Key == key {
+			secret.Archived = s.Archived
+			safe.Secrets[i] = secret
+			found = true
+			break
+		}
 	}
 	if !found {
-	http.Error(w, "Secret not found", http.StatusBadRequest)
-	return
+		http.Error(w, "Secret not found", http.StatusBadRequest)
+		return
 	}
 	openSafes[safeName] = safe
 	w.WriteHeader(http.StatusOK)
-	}
+}
 
-	func handleArchiveSecret(w http.ResponseWriter, r *http.Request) {
+func handleArchiveSecret(w http.ResponseWriter, r *http.Request) {
 	safeName := r.URL.Query().Get("as")
 	if safeName == "" {
-	http.Error(w, "Missing safe name", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing safe name", http.StatusBadRequest)
+		return
 	}
 	mutex.Lock()
 	defer mutex.Unlock()
 	safe, ok := openSafes[safeName]
 	if !ok {
-	http.Error(w, "Safe not open", http.StatusBadRequest)
-	return
+		http.Error(w, "Safe not open", http.StatusBadRequest)
+		return
 	}
 	key := r.URL.Query().Get("key")
 	if key == "" {
@@ -235,107 +235,107 @@ func handleExportSafe(w http.ResponseWriter, r *http.Request) {
 	openSafes[safeName] = safe
 	w.WriteHeader(http.StatusOK)
 
-	}
+}
 
-	func handleUnarchiveSecret(w http.ResponseWriter, r *http.Request) {
+func handleUnarchiveSecret(w http.ResponseWriter, r *http.Request) {
 	safeName := r.URL.Query().Get("as")
 	if safeName == "" {
-	http.Error(w, "Missing safe name", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing safe name", http.StatusBadRequest)
+		return
 	}
 	mutex.Lock()
 	defer mutex.Unlock()
 	safe, ok := openSafes[safeName]
 	if !ok {
-	http.Error(w, "Safe not open", http.StatusBadRequest)
-	return
+		http.Error(w, "Safe not open", http.StatusBadRequest)
+		return
 	}
 	key := r.URL.Query().Get("key")
 	if key == "" {
-	http.Error(w, "Missing key", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing key", http.StatusBadRequest)
+		return
 	}
 	found := false
 	for i, s := range safe.Secrets {
-	if s.Key == key {
-	s.Archived = false
-	safe.Secrets[i] = s
-	found = true
-	break
-	}
+		if s.Key == key {
+			s.Archived = false
+			safe.Secrets[i] = s
+			found = true
+			break
+		}
 	}
 	if !found {
-	http.Error(w, "Secret not found", http.StatusBadRequest)
-	return
+		http.Error(w, "Secret not found", http.StatusBadRequest)
+		return
 	}
 	openSafes[safeName] = safe
 	w.WriteHeader(http.StatusOK)
-	}
+}
 
-	func handleAddTag(w http.ResponseWriter, r *http.Request) {
+func handleAddTag(w http.ResponseWriter, r *http.Request) {
 	safeName := r.URL.Query().Get("as")
 	if safeName == "" {
-	http.Error(w, "Missing safe name", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing safe name", http.StatusBadRequest)
+		return
 	}
 	mutex.Lock()
 	defer mutex.Unlock()
 	safe, ok := openSafes[safeName]
 	if !ok {
-	http.Error(w, "Safe not open", http.StatusBadRequest)
-	return
+		http.Error(w, "Safe not open", http.StatusBadRequest)
+		return
 	}
 	key := r.URL.Query().Get("key")
 	if key == "" {
-	http.Error(w, "Missing key", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing key", http.StatusBadRequest)
+		return
 	}
 	var tag string
 	err := json.NewDecoder(r.Body).Decode(&tag)
 	if err != nil {
-	http.Error(w, "Error decoding tag: "+err.Error(), http.StatusInternalServerError)
-	return
+		http.Error(w, "Error decoding tag: "+err.Error(), http.StatusInternalServerError)
+		return
 	}
 	found := false
 	for i, s := range safe.Secrets {
-	if s.Key == key {
-	s.Tags = append(s.Tags, tag)
-	safe.Secrets[i] = s
-	found = true
-	break
-	}
+		if s.Key == key {
+			s.Tags = append(s.Tags, tag)
+			safe.Secrets[i] = s
+			found = true
+			break
+		}
 	}
 	if !found {
-	http.Error(w, "Secret not found", http.StatusBadRequest)
-	return
+		http.Error(w, "Secret not found", http.StatusBadRequest)
+		return
 	}
 	openSafes[safeName] = safe
 	w.WriteHeader(http.StatusOK)
-	}
+}
 
-	func handleRemoveTag(w http.ResponseWriter, r *http.Request) {
+func handleRemoveTag(w http.ResponseWriter, r *http.Request) {
 	safeName := r.URL.Query().Get("as")
 	if safeName == "" {
-	http.Error(w, "Missing safe name", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing safe name", http.StatusBadRequest)
+		return
 	}
 	mutex.Lock()
 	defer mutex.Unlock()
 	safe, ok := openSafes[safeName]
 	if !ok {
-	http.Error(w, "Safe not open", http.StatusBadRequest)
-	return
+		http.Error(w, "Safe not open", http.StatusBadRequest)
+		return
 	}
 	key := r.URL.Query().Get("key")
 	if key == "" {
-	http.Error(w, "Missing key", http.StatusBadRequest)
-	return
+		http.Error(w, "Missing key", http.StatusBadRequest)
+		return
 	}
 	var tag string
 	err := json.NewDecoder(r.Body).Decode(&tag)
 	if err != nil {
-	http.Error(w, "Error decoding tag: "+err.Error(), http.StatusInternalServerError)
-	return
+		http.Error(w, "Error decoding tag: "+err.Error(), http.StatusInternalServerError)
+		return
 	}
 	found := false
 	for i, s := range safe.Secrets {
@@ -357,18 +357,18 @@ func handleExportSafe(w http.ResponseWriter, r *http.Request) {
 	}
 	openSafes[safeName] = safe
 	w.WriteHeader(http.StatusOK)
-	}
+}
 
-	func handleTeapot(w http.ResponseWriter, r *http.Request) {
+func handleTeapot(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "This is GSM, Git/Go/Graham Secret Management")
 	fmt.Fprintln(w, "Version: 1.0.0")
 	fmt.Fprintln(w, "Author: Graham Wihlidal")
 	fmt.Fprintln(w, "License: Apache 2.0")
 	fmt.Fprintln(w, "Source: https://github.com/grahamwihlidal/gsm")
 	w.WriteHeader(http.StatusTeapot)
-	}
+}
 
-	func main() {
+func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/v1/safe/open", handleOpenSafe).Methods("GET")
 	r.HandleFunc("/api/v1/safe/create", handleCreateSafe).Methods("POST")
@@ -382,4 +382,4 @@ func handleExportSafe(w http.ResponseWriter, r *http.Request) {
 	r.HandleFunc("/api/v1/safe/tag", handleRemoveTag).Methods("DELETE")
 	r.HandleFunc("/about", handleTeapot).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8080", r))
-	}
+}
