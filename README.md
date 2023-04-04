@@ -52,24 +52,24 @@ Actions
 
 ## How does a user interact with this utility service?
 Actions  => Corresponding API Calls
-0. HTTP GET /api/v1/safe/open?as=<uniqueSafeBufferName>
+0. HTTP GET /api/v1/safe/open?as=`uniqueSafeBufferName`
 
-1. HTTP POST /api/v1/safe/create?as=<uniqueSafeBufferName>
+1. HTTP POST /api/v1/safe/create?as=`uniqueSafeBufferName`
 
-2. HTTP GET /api/v1/safe/export?as=<uniqueSafeBufferName>
+2. HTTP GET /api/v1/safe/export?as=`uniqueSafeBufferName`
 
-3. HTTP GET /api/v1/safe/hash?as=<uniqueSafeBufferName>
+3. HTTP GET /api/v1/safe/hash?as=`uniqueSafeBufferName`
 
-4. HTTP PUT /api/v1/safe/entry?key=<uniqueKeyNameIdentifier>
+4. HTTP PUT /api/v1/safe/entry?key=`uniqueKeyNameIdentifier`
 
-5. HTTP PATCH /api/v1/safe/entry?key=<uniqueKeyNameIdentifier>
+5. HTTP PATCH /api/v1/safe/entry?key=`uniqueKeyNameIdentifier`
 
-6. HTTP PATCH /api/v1/safe/archive?key=<uniqueKeyNameIdentifier>
+6. HTTP PATCH /api/v1/safe/archive?key=`uniqueKeyNameIdentifier`
 
-7. HTTP PATCH /api/v1/safe/unarchive?key=<uniqueKeyNameIdentifier>
+7. HTTP PATCH /api/v1/safe/unarchive?key=`uniqueKeyNameIdentifier`
 
-8. HTTP PUT /api/v1/safe/tag?key=<uniqueKeyNameIdentifier>
+8. HTTP PUT /api/v1/safe/tag?key=`uniqueKeyNameIdentifier`
 
-9. HTTP DELETE /api/v1/safe/tag?key=<uniqueKeyNameIdentifier>
+9. HTTP DELETE /api/v1/safe/tag?key=`uniqueKeyNameIdentifier`
 
-10. HTTP TEAPOT -- show supplimental about info.
+10. HTTP TEAPOT / show supplimental about info.
