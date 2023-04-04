@@ -362,9 +362,9 @@ func handleRemoveTag(w http.ResponseWriter, r *http.Request) {
 func handleTeapot(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "This is GSM, Git/Go/Graham Secret Management")
 	fmt.Fprintln(w, "Version: 1.0.0")
-	fmt.Fprintln(w, "Author: Graham Wihlidal")
-	fmt.Fprintln(w, "License: Apache 2.0")
-	fmt.Fprintln(w, "Source: https://github.com/grahamwihlidal/gsm")
+	fmt.Fprintln(w, "Author: Graham Greenfield")
+	fmt.Fprintln(w, "License: MIT")
+	fmt.Fprintln(w, "Source: https://github.com/grahamg/gsm")
 	w.WriteHeader(http.StatusTeapot)
 }
 
